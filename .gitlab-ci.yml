@@ -1,0 +1,11 @@
+include:
+ - project: doudous/ci-templates
+   ref: main
+   file: build.yaml
+
+build:
+  needs: []
+  extends: .build_container
+  stage: build
+  variables:
+    GIT_SUBMODULE_STRATEGY: recursive
