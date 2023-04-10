@@ -8,4 +8,4 @@ build:
   extends: .build_container
   stage: build
   variables:
-    GIT_SUBMODULE_STRATEGY: recursive
+    REPO: ghcr.io/vaskozl/synology-csi
