@@ -29,11 +29,16 @@ RUN apk add --no-cache e2fsprogs e2fsprogs-extra xfsprogs xfsprogs-extra blkid u
 # Create symbolic link for chroot.sh
 WORKDIR /
 RUN mkdir /csibin
-COPY chroot/chroot.sh /csibin
-RUN chmod 777 /csibin/chroot.sh \
-        && ln -s /csibin/chroot.sh /csibin/iscsiadm \
-        && ln -s /csibin/chroot.sh /csibin/multipath \
-        && ln -s /csibin/chroot.sh /csibin/multipathd
+
+# Hack is specific to talos linux
+WORKDIR /
+COPY --chmod=777 <<-"EOF" /csibin/nsenter.sh
+	#!/usr/bin/env bash
+	iscsid_pid=$(pgrep iscsid)
+	nsenter --mount="/proc/${iscsid_pid}/ns/mnt" --net="/proc/${iscsid_pid}/ns/net" -- /usr/local/sbin/iscsiadm "$@"
+EOF
+RUN ln -s /csibin/nsenter.sh /csibin/iscsiadm
+
 
 ENV PATH="/csibin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 
