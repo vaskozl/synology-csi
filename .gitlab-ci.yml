@@ -9,3 +9,4 @@ build:
   stage: build
   variables:
     REPO: ghcr.io/vaskozl/synology-csi
+    DOCKER_AUTH_CONFIG: GHCR_AUTH_CONFIG
