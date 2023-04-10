@@ -46,3 +46,5 @@ ENV PATH="/csibin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 COPY --from=builder /go/src/synok8scsiplugin/bin/synology-csi-driver synology-csi-driver
 
 ENTRYPOINT ["/synology-csi-driver"]
+
+LABEL org.opencontainers.image.source https://github.com/vaskozl/synology-csi
