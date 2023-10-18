@@ -50,7 +50,7 @@ jobs:
           args: scripts/deploy.sh
         env:
           KUBECONFIG: ./kubeconfig.yml
-          IMAGE_TAG:
+          IMAGE_TAG: docker.toph.online/synology/synology-csi:${{ github.sha }}
 
 
 
